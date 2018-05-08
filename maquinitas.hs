@@ -1,3 +1,5 @@
+module Maquinitas where
+    
 type Nombre = String
 type Dinero = Float
 type Suerte = Float
@@ -64,6 +66,7 @@ vision = Persona {
 }
 
 -- 1)
+
 suerteTotalDe :: Persona -> Suerte
 suerteTotalDe persona
   | tieneAmuletos persona = (sum . aplicarFactorSuerte) persona
@@ -85,6 +88,7 @@ amuletoEsCero :: Amuleto -> Bool
 amuletoEsCero = (/= 0) . suerteAmuleto
 
 -- 2)
+
 data JuegoDeApuesta = JuegoDeApuesta {
     nombreJuego :: Nombre,
     premio :: Premio,
@@ -99,6 +103,7 @@ ruleta = JuegoDeApuesta {
 }
 
 type Premio = Dinero -> Dinero
+type Jackpot = Dinero
 type Criterio = Persona -> Bool
 
 premioRuleta :: Premio
@@ -114,7 +119,7 @@ maquinita n = JuegoDeApuesta {
     criterio = criterioMaquinita
 }
 
-premioMaquinita :: Dinero -> Premio
+premioMaquinita :: Jackpot -> Premio
 premioMaquinita jackpot = (jackpot +)
 
 criterioMaquinita :: Criterio
